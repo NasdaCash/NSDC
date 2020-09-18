@@ -1,0 +1,6 @@
+usr/local/bin/nasdacash-qt usr/bin
+share/pixmaps/nasdacash32.xpm usr/share/pixmaps
+share/pixmaps/nasdacash16.xpm usr/share/pixmaps
+share/pixmaps/nasdacash128.png usr/share/pixmaps
+debian/nasdacash-qt.desktop usr/share/applications
+debian/nasdacash-qt.protocol usr/share/kde4/services/

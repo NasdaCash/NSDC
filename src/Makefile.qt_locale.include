@@ -1,0 +1,15 @@
+QT_TS = \
+  qt/locale/nasdacash_de.ts \
+  qt/locale/nasdacash_en.ts \
+  qt/locale/nasdacash_en_US.ts \
+  qt/locale/nasdacash_es.ts \
+  qt/locale/nasdacash_es_ES.ts \
+  qt/locale/nasdacash_fr_FR.ts \
+  qt/locale/nasdacash_hr_HR.ts \
+  qt/locale/nasdacash_it.ts \
+  qt/locale/nasdacash_ko_KR.ts \
+  qt/locale/nasdacash_nl.ts \
+  qt/locale/nasdacash_pl.ts \
+  qt/locale/nasdacash_ru.ts \
+  qt/locale/nasdacash_tr.ts \
+  qt/locale/nasdacash_zh_CN.ts

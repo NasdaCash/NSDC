@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=Nasda Cash
+Comment=Nasda_Cash P2P Cryptocurrency
+Comment[fr]=Nasda_Cash, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Nasda_Cash, eşten eşe kriptografik sanal para birimi
+Exec=nasdacash-qt %u
+Terminal=false
+Type=Application
+Icon=nasdacash128
+MimeType=x-scheme-handler/nasdacash;
+Categories=Office;Finance;
+StartupWMClass=NasdaCash-qt

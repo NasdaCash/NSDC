@@ -1,0 +1,3 @@
+usr/local/bin/nasdacashd usr/bin
+usr/local/bin/nasdacash-cli usr/bin
+debian/examples/nasdacash.conf etc/nasdacash

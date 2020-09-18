@@ -1,0 +1,712 @@
+# Copyright (c) 2013-2016 The Bitcoin Core developers
+# Distributed under the MIT software license, see the accompanying
+# file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
+bin_PROGRAMS += qt/nasdacash-qt
+EXTRA_LIBRARIES += qt/libbitcoinqt.a
+
+# nasdacash qt core #
+include Makefile.qt_locale.include
+
+QT_FORMS_UI = \
+  qt/forms/addressbookpage.ui \
+  qt/forms/askpassphrasedialog.ui \
+  qt/forms/coincontroldialog.ui \
+  qt/forms/editaddressdialog.ui \
+  qt/forms/helpmessagedialog.ui \
+  qt/forms/intro.ui \
+  qt/forms/openuridialog.ui \
+  qt/forms/optionsdialog.ui \
+  qt/forms/rpcconsole.ui \
+  qt/nasdacash/forms/loadingdialog.ui \
+  qt/nasdacash/forms/snackbar.ui \
+  qt/nasdacash/forms/navmenuwidget.ui \
+  qt/nasdacash/forms/lockunlock.ui \
+  qt/nasdacash/forms/expandablebutton.ui \
+  qt/nasdacash/forms/receivedialog.ui \
+  qt/nasdacash/forms/topbar.ui \
+  qt/nasdacash/forms/txrow.ui \
+  qt/nasdacash/forms/dashboardwidget.ui \
+  qt/nasdacash/forms/addresslabelrow.ui \
+  qt/nasdacash/forms/contactdropdownrow.ui \
+  qt/nasdacash/forms/mninfodialog.ui \
+  qt/nasdacash/forms/optionbutton.ui \
+  qt/nasdacash/forms/masternodewizarddialog.ui \
+  qt/nasdacash/forms/mnrow.ui \
+  qt/nasdacash/forms/masternodeswidget.ui \
+  qt/nasdacash/forms/myaddressrow.ui \
+  qt/nasdacash/forms/csrow.ui \
+  qt/nasdacash/forms/sendchangeaddressdialog.ui \
+  qt/nasdacash/forms/sendconfirmdialog.ui \
+  qt/nasdacash/forms/sendcustomfeedialog.ui \
+  qt/nasdacash/forms/sendchangeaddressdialog.ui \
+  qt/nasdacash/forms/sendmultirow.ui \
+  qt/nasdacash/forms/send.ui \
+  qt/nasdacash/forms/addnewaddressdialog.ui \
+  qt/nasdacash/forms/addnewcontactdialog.ui \
+  qt/nasdacash/forms/requestdialog.ui \
+  qt/nasdacash/forms/receivewidget.ui \
+  qt/nasdacash/forms/tooltipmenu.ui \
+  qt/nasdacash/forms/addresseswidget.ui \
+  qt/nasdacash/forms/defaultdialog.ui \
+  qt/nasdacash/forms/coldstakingwidget.ui \
+  qt/nasdacash/settings/forms/settingsbackupwallet.ui \
+  qt/nasdacash/settings/forms/settingsexportcsv.ui \
+  qt/nasdacash/settings/forms/settingsbittoolwidget.ui \
+  qt/nasdacash/settings/forms/settingsconsolewidget.ui \
+  qt/nasdacash/settings/forms/settingsdisplayoptionswidget.ui \
+  qt/nasdacash/settings/forms/settingsfaqwidget.ui \
+  qt/nasdacash/settings/forms/settingsinformationwidget.ui \
+  qt/nasdacash/settings/forms/settingsmainoptionswidget.ui \
+  qt/nasdacash/settings/forms/settingsmultisenddialog.ui \
+  qt/nasdacash/settings/forms/settingsmultisendwidget.ui \
+  qt/nasdacash/settings/forms/settingssignmessagewidgets.ui \
+  qt/nasdacash/settings/forms/settingswalletoptionswidget.ui \
+  qt/nasdacash/settings/forms/settingswalletrepairwidget.ui \
+  qt/nasdacash/settings/forms/settingswidget.ui \
+  qt/nasdacash/forms/welcomecontentwidget.ui \
+  qt/nasdacash/forms/splash.ui
+
+QT_MOC_CPP = \
+  qt/moc_addressbookpage.cpp \
+  qt/moc_addresstablemodel.cpp \
+  qt/moc_askpassphrasedialog.cpp \
+  qt/moc_bantablemodel.cpp \
+  qt/moc_bitcoinaddressvalidator.cpp \
+  qt/nasdacash/moc_nasdacashgui.cpp \
+  qt/moc_bitcoinunits.cpp \
+  qt/moc_clientmodel.cpp \
+  qt/moc_coincontroldialog.cpp \
+  qt/moc_coincontroltreewidget.cpp \
+  qt/moc_csvmodelwriter.cpp \
+  qt/moc_editaddressdialog.cpp \
+  qt/moc_guiutil.cpp \
+  qt/moc_intro.cpp \
+  qt/moc_macdockiconhandler.cpp \
+  qt/moc_macnotificationhandler.cpp \
+  qt/moc_notificator.cpp \
+  qt/moc_openuridialog.cpp \
+  qt/moc_optionsdialog.cpp \
+  qt/moc_optionsmodel.cpp \
+  qt/moc_peertablemodel.cpp \
+  qt/moc_paymentserver.cpp \
+  qt/moc_qvalidatedlineedit.cpp \
+  qt/moc_qvaluecombobox.cpp \
+  qt/moc_recentrequeststablemodel.cpp \
+  qt/moc_rpcconsole.cpp \
+  qt/moc_trafficgraphwidget.cpp \
+  qt/moc_transactiondesc.cpp \
+  qt/moc_transactionfilterproxy.cpp \
+  qt/moc_transactiontablemodel.cpp \
+  qt/moc_utilitydialog.cpp \
+  qt/moc_walletmodel.cpp \
+  qt/nasdacash/moc_loadingdialog.cpp \
+  qt/nasdacash/moc_pwidget.cpp \
+  qt/nasdacash/moc_focuseddialog.cpp \
+  qt/nasdacash/moc_snackbar.cpp \
+  qt/nasdacash/moc_navmenuwidget.cpp \
+  qt/nasdacash/moc_lockunlock.cpp \
+  qt/nasdacash/moc_expandablebutton.cpp \
+  qt/nasdacash/moc_furabstractlistitemdelegate.cpp \
+  qt/nasdacash/moc_receivedialog.cpp \
+  qt/nasdacash/moc_pfborderimage.cpp \
+  qt/nasdacash/moc_topbar.cpp \
+  qt/nasdacash/moc_txrow.cpp \
+  qt/nasdacash/moc_dashboardwidget.cpp \
+  qt/nasdacash/moc_addresslabelrow.cpp \
+  qt/nasdacash/moc_contactdropdownrow.cpp \
+  qt/nasdacash/moc_mninfodialog.cpp \
+  qt/nasdacash/moc_optionbutton.cpp \
+  qt/nasdacash/moc_coldstakingmodel.cpp \
+  qt/nasdacash/moc_mnmodel.cpp \
+  qt/nasdacash/moc_masternodewizarddialog.cpp \
+  qt/nasdacash/moc_mnrow.cpp \
+  qt/nasdacash/moc_masternodeswidget.cpp \
+  qt/nasdacash/moc_myaddressrow.cpp \
+  qt/nasdacash/moc_csrow.cpp \
+  qt/nasdacash/moc_contactsdropdown.cpp \
+  qt/nasdacash/moc_sendchangeaddressdialog.cpp \
+  qt/nasdacash/moc_sendconfirmdialog.cpp \
+  qt/nasdacash/moc_sendcustomfeedialog.cpp \
+  qt/nasdacash/moc_sendchangeaddressdialog.cpp \
+  qt/nasdacash/moc_sendmultirow.cpp \
+  qt/nasdacash/moc_send.cpp \
+  qt/nasdacash/moc_addnewaddressdialog.cpp \
+  qt/nasdacash/moc_addnewcontactdialog.cpp \
+  qt/nasdacash/moc_requestdialog.cpp \
+  qt/nasdacash/moc_receivewidget.cpp \
+  qt/nasdacash/moc_tooltipmenu.cpp \
+  qt/nasdacash/moc_addresseswidget.cpp \
+  qt/nasdacash/moc_defaultdialog.cpp \
+  qt/nasdacash/moc_coldstakingwidget.cpp \
+  qt/nasdacash/settings/moc_settingsbackupwallet.cpp \
+  qt/nasdacash/settings/moc_settingsexportcsv.cpp \
+  qt/nasdacash/settings/moc_settingsbittoolwidget.cpp \
+  qt/nasdacash/settings/moc_settingsconsolewidget.cpp \
+  qt/nasdacash/settings/moc_settingsdisplayoptionswidget.cpp \
+  qt/nasdacash/settings/moc_settingsfaqwidget.cpp \
+  qt/nasdacash/settings/moc_settingsinformationwidget.cpp \
+  qt/nasdacash/settings/moc_settingsmainoptionswidget.cpp \
+  qt/nasdacash/settings/moc_settingsmultisenddialog.cpp \
+  qt/nasdacash/settings/moc_settingsmultisendwidget.cpp \
+  qt/nasdacash/settings/moc_settingssignmessagewidgets.cpp \
+  qt/nasdacash/settings/moc_settingswalletoptionswidget.cpp \
+  qt/nasdacash/settings/moc_settingswalletrepairwidget.cpp \
+  qt/nasdacash/settings/moc_settingswidget.cpp \
+  qt/nasdacash/moc_welcomecontentwidget.cpp \
+  qt/nasdacash/moc_splash.cpp
+
+BITCOIN_MM = \
+  qt/macdockiconhandler.mm \
+  qt/macnotificationhandler.mm
+
+QT_MOC = \
+  qt/nasdacash.moc \
+  qt/intro.moc \
+  qt/rpcconsole.moc \
+  qt/nasdacash/settings/moc_settingsconsolewidget.cpp
+
+QT_QRC_CPP = qt/qrc_nasdacash.cpp
+QT_QRC = qt/nasdacash.qrc
+QT_QRC_LOCALE_CPP = qt/qrc_nasdacash_locale.cpp
+QT_QRC_LOCALE = qt/nasdacash_locale.qrc
+
+PROTOBUF_CC = qt/paymentrequest.pb.cc
+PROTOBUF_H = qt/paymentrequest.pb.h
+PROTOBUF_PROTO = qt/paymentrequest.proto
+
+BITCOIN_QT_H = \
+  qt/addressbookpage.h \
+  qt/addresstablemodel.h \
+  qt/askpassphrasedialog.h \
+  qt/bantablemodel.h \
+  qt/bitcoinaddressvalidator.h \
+  qt/nasdacash/nasdacashgui.h \
+  qt/bitcoinunits.h \
+  qt/clientmodel.h \
+  qt/coincontroldialog.h \
+  qt/coincontroltreewidget.h \
+  qt/csvmodelwriter.h \
+  qt/editaddressdialog.h \
+  qt/guiconstants.h \
+  qt/guiutil.h \
+  qt/intro.h \
+  qt/macdockiconhandler.h \
+  qt/macnotificationhandler.h \
+  qt/networkstyle.h \
+  qt/notificator.h \
+  qt/openuridialog.h \
+  qt/optionsdialog.h \
+  qt/optionsmodel.h \
+  qt/paymentrequestplus.h \
+  qt/paymentserver.h \
+  qt/peertablemodel.h \
+  qt/platformstyle.h \
+  qt/qvalidatedlineedit.h \
+  qt/qvaluecombobox.h \
+  qt/recentrequeststablemodel.h \
+  qt/rpcconsole.h \
+  qt/trafficgraphwidget.h \
+  qt/transactiondesc.h \
+  qt/transactionfilterproxy.h \
+  qt/transactionrecord.h \
+  qt/transactiontablemodel.h \
+  qt/utilitydialog.h \
+  qt/walletmodel.h \
+  qt/walletmodeltransaction.h \
+  qt/nasdacash/prunnable.h \
+  qt/nasdacash/pfborderimage.h \
+  qt/nasdacash/loadingdialog.h \
+  qt/winshutdownmonitor.h \
+  qt/nasdacash/pwidget.h \
+  qt/nasdacash/focuseddialog.h \
+  qt/nasdacash/guitransactionsutils.h \
+  qt/nasdacash/snackbar.h \
+  qt/nasdacash/navmenuwidget.h \
+  qt/nasdacash/lockunlock.h \
+  qt/nasdacash/receivedialog.h \
+  qt/nasdacash/furlistrow.h \
+  qt/nasdacash/furabstractlistitemdelegate.h \
+  qt/nasdacash/txviewholder.h \
+  qt/nasdacash/qtutils.h \
+  qt/nasdacash/expandablebutton.h \
+  qt/nasdacash/topbar.h \
+  qt/nasdacash/txrow.h \
+  qt/nasdacash/addressholder.h \
+  qt/nasdacash/addressfilterproxymodel.h \
+  qt/nasdacash/dashboardwidget.h \
+  qt/nasdacash/addresslabelrow.h \
+  qt/nasdacash/contactdropdownrow.h \
+  qt/nasdacash/mninfodialog.h \
+  qt/nasdacash/optionbutton.h \
+  qt/nasdacash/coldstakingmodel.h \
+  qt/nasdacash/mnmodel.h \
+  qt/nasdacash/masternodewizarddialog.h \
+  qt/nasdacash/mnrow.h \
+  qt/nasdacash/masternodeswidget.h \
+  qt/nasdacash/myaddressrow.h \
+  qt/nasdacash/csrow.h \
+  qt/nasdacash/contactsdropdown.h \
+  qt/nasdacash/sendchangeaddressdialog.h \
+  qt/nasdacash/sendconfirmdialog.h \
+  qt/nasdacash/sendcustomfeedialog.h \
+  qt/nasdacash/sendchangeaddressdialog.h \
+  qt/nasdacash/sendmultirow.h \
+  qt/nasdacash/send.h \
+  qt/nasdacash/addnewaddressdialog.h \
+  qt/nasdacash/addnewcontactdialog.h \
+  qt/nasdacash/requestdialog.h \
+  qt/nasdacash/receivewidget.h \
+  qt/nasdacash/tooltipmenu.h \
+  qt/nasdacash/addresseswidget.h \
+  qt/nasdacash/defaultdialog.h \
+  qt/nasdacash/coldstakingwidget.h \
+  qt/nasdacash/settings/settingsbackupwallet.h \
+  qt/nasdacash/settings/settingsexportcsv.h \
+  qt/nasdacash/settings/settingsbittoolwidget.h \
+  qt/nasdacash/settings/settingsconsolewidget.h \
+  qt/nasdacash/settings/settingsdisplayoptionswidget.h \
+  qt/nasdacash/settings/settingsfaqwidget.h \
+  qt/nasdacash/settings/settingsinformationwidget.h \
+  qt/nasdacash/settings/settingsmainoptionswidget.h \
+  qt/nasdacash/settings/settingsmultisenddialog.h \
+  qt/nasdacash/settings/settingsmultisendwidget.h \
+  qt/nasdacash/settings/settingssignmessagewidgets.h \
+  qt/nasdacash/settings/settingswalletoptionswidget.h \
+  qt/nasdacash/settings/settingswalletrepairwidget.h \
+  qt/nasdacash/settings/settingswidget.h \
+  qt/nasdacash/welcomecontentwidget.h \
+  qt/nasdacash/splash.h
+
+RES_ICONS = \
+  qt/res/icons/bitcoin.ico \
+  qt/res/icons/bitcoin.png \
+  qt/res/icons/bitcoin_testnet.ico \
+  qt/res/icons/bitcoin_testnet.png \
+  qt/res/icons/bitcoin_regtest.png \
+  qt/res/icons/lock_closed.png \
+  qt/res/icons/lock_open.png \
+  qt/res/icons/ic-transaction-received.png \
+  qt/res/icons/ic-transaction-mint.png \
+  qt/res/icons/ic-transaction-sent.png \
+  qt/res/icons/ic-transaction-staked.png \
+  qt/nasdacash/res/img/bg-dashboard-banner.png \
+  qt/nasdacash/res/img/bg-multi-number-dark.png \
+  qt/nasdacash/res/img/ic-check-locked.png \
+  qt/nasdacash/res/img/ic-nav-address.png \
+  qt/nasdacash/res/img/ic-update.png \
+  qt/nasdacash/res/img/bg-multi-number.png \
+  qt/nasdacash/res/img/ic-check-mint-off.png \
+  qt/nasdacash/res/img/ic-nav-cold-staking.png \
+  qt/nasdacash/res/img/ic-nav-cold-staking-active.png \
+  qt/nasdacash/res/img/ic-nav-dashboard-active.png \
+  qt/nasdacash/res/img/ic-wallet-status-locked.png \
+  qt/nasdacash/res/img/bg-splash.png \
+  qt/nasdacash/res/img/ic-check-mint.png \
+  qt/nasdacash/res/img/ic-nav-dashboard-hover.png \
+  qt/nasdacash/res/img/ic-wallet-status-staking.png \
+  qt/nasdacash/res/img/ic-check-peers-off.png \
+  qt/nasdacash/res/img/ic-nav-dashboard.png \
+  qt/nasdacash/res/img/ic-wallet-status-unlocked.png \
+  qt/nasdacash/res/img/ic-check-peers.png \
+  qt/nasdacash/res/img/ic-nav-master-active.png \
+  qt/nasdacash/res/img/ic-watch-password-white.png \
+  qt/nasdacash/res/img/bg-welcome-container.jpg \
+  qt/nasdacash/res/img/bg-welcome-container.png \
+  qt/nasdacash/res/img/bg-welcome-container@2x.png \
+  qt/nasdacash/res/img/bg-welcome-container@3x.png \
+  qt/nasdacash/res/img/ic-check-staking-off.png \
+  qt/nasdacash/res/img/ic-nav-master-hover.png \
+  qt/nasdacash/res/img/ic-watch-password.png \
+  qt/nasdacash/res/img/bg-welcome.jpg \
+  qt/nasdacash/res/img/bg-welcome@2x.jpg \
+  qt/nasdacash/res/img/bg-welcome@3x.jpg \
+  qt/nasdacash/res/img/bg-welcome.png \
+  qt/nasdacash/res/img/ic-check-staking.png \
+  qt/nasdacash/res/img/ic-nav-master.png \
+  qt/nasdacash/res/img/btn-radio-active.png \
+  qt/nasdacash/res/img/ic-check-sync-off.png \
+  qt/nasdacash/res/img/ic-nav-privacy-active.png \
+  qt/nasdacash/res/img/img-empty-contacts.png \
+  qt/nasdacash/res/img/btn-radio-off.png \
+  qt/nasdacash/res/img/ic-check-sync.png \
+  qt/nasdacash/res/img/ic-nav-privacy-hover.png \
+  qt/nasdacash/res/img/img-empty-dark-contacts.png \
+  qt/nasdacash/res/img/ic-contact-arrow-down.png \
+  qt/nasdacash/res/img/ic-contact-arrow-down-white.png \
+  qt/nasdacash/res/img/ic-check-faq.png \
+  qt/nasdacash/res/img/ic-nav-privacy.png \
+  qt/nasdacash/res/img/img-empty-dark-error.png \
+  qt/nasdacash/res/img/ic-add-label.png \
+  qt/nasdacash/res/img/ic-pending.png \
+  qt/nasdacash/res/img/ic-check-theme-dark.png \
+  qt/nasdacash/res/img/ic-nav-receive-active.png \
+  qt/nasdacash/res/img/img-empty-dark-masternode.png \
+  qt/nasdacash/res/img/ic-add-liliac.png \
+  qt/nasdacash/res/img/ic-check-theme-light.png \
+  qt/nasdacash/res/img/ic-nav-receive-hover.png \
+  qt/nasdacash/res/img/img-empty-dark-multisend.png \
+  qt/nasdacash/res/img/ic-add-purple.png \
+  qt/nasdacash/res/img/ic-check-white.png \
+  qt/nasdacash/res/img/ic-nav-receive.png \
+  qt/nasdacash/res/img/img-empty-dark-peers.png \
+  qt/nasdacash/res/img/ic-add.png \
+  qt/nasdacash/res/img/ic-check.png \
+  qt/nasdacash/res/img/ic-nav-send-active.png \
+  qt/nasdacash/res/img/img-empty-dark-staking-off.png \
+  qt/nasdacash/res/img/img-empty-dark-staking-on.png \
+  qt/nasdacash/res/img/ic-address-book-grey.png \
+  qt/nasdacash/res/img/ic-chevron-left.png \
+  qt/nasdacash/res/img/ic-nav-send-hover.png \
+  qt/nasdacash/res/img/img-empty-dark-transactions.png \
+  qt/nasdacash/res/img/ic-address-book-white.png \
+  qt/nasdacash/res/img/ic-chevron-right.png \
+  qt/nasdacash/res/img/ic-nav-send.png \
+  qt/nasdacash/res/img/img-empty-error.png \
+  qt/nasdacash/res/img/ic-address-book.png \
+  qt/nasdacash/res/img/ic-clear-liliac.png \
+  qt/nasdacash/res/img/ic-nav-settings-active.png \
+  qt/nasdacash/res/img/img-empty-masternode.png \
+  qt/nasdacash/res/img/ic-address-send-white.png \
+  qt/nasdacash/res/img/ic-clear-purple.png \
+  qt/nasdacash/res/img/ic-nav-settings-hover.png \
+  qt/nasdacash/res/img/img-empty-multisend.png \
+  qt/nasdacash/res/img/ic-address-send.png \
+  qt/nasdacash/res/img/ic-close-white.png \
+  qt/nasdacash/res/img/ic-nav-settings.png \
+  qt/nasdacash/res/img/img-empty-peers.png \
+  qt/nasdacash/res/img/img-empty-privacy.png \
+  qt/nasdacash/res/img/img-empty-privacy-dark.png \
+  qt/nasdacash/res/img/ic-arrow-drop-down-white.png \
+  qt/nasdacash/res/img/ic-close.png \
+  qt/nasdacash/res/img/ic-radio-liliac-on.png \
+  qt/nasdacash/res/img/img-empty-staking-off.png \
+  qt/nasdacash/res/img/ic-arrow-drop-down.png \
+  qt/nasdacash/res/img/ic-coin-nsdc.png \
+  qt/nasdacash/res/img/ic-receive-off.png \
+  qt/nasdacash/res/img/img-empty-staking-on.png \
+  qt/nasdacash/res/img/ic-arrow-drop-up-white.png \
+  qt/nasdacash/res/img/ic-receive-on.png \
+  qt/nasdacash/res/img/img-empty-transactions.png \
+  qt/nasdacash/res/img/ic-arrow-drop-up.png \
+  qt/nasdacash/res/img/ic-received.png \
+  qt/nasdacash/res/img/img-logo-nasdacash.png \
+  qt/nasdacash/res/img/ic-arrow-drop-white-down.png \
+  qt/nasdacash/res/img/ic-combo-box.png \
+  qt/nasdacash/res/img/ic-send.png \
+  qt/nasdacash/res/img/img-logo-nasdacash@2x.png \
+  qt/nasdacash/res/img/ic-arrow-purple-down.png \
+  qt/nasdacash/res/img/ic-connect.png \
+  qt/nasdacash/res/img/ic-submenu-lock.png \
+  qt/nasdacash/res/img/img-logo-nasdacash@3x.png \
+  qt/nasdacash/res/img/ic-arrow-right-white.png \
+  qt/nasdacash/res/img/ic-arrow-left-white.png \
+  qt/nasdacash/res/img/ic-arrow-left.png \
+  qt/nasdacash/res/img/ic-copy-liliac.png \
+  qt/nasdacash/res/img/ic-submenu-staking.png \
+  qt/nasdacash/res/img/img-nav-logo-nasdacash.png \
+  qt/nasdacash/res/img/ic-arrow-right.png \
+  qt/nasdacash/res/img/ic-copy.png \
+  qt/nasdacash/res/img/ic-copy-big.png \
+  qt/nasdacash/res/img/ic-copy-big-white.png \
+  qt/nasdacash/res/img/ic-submenu-unlock.png \
+  qt/nasdacash/res/img/img-nav-logo.png \
+  qt/nasdacash/res/img/ic-arrow-white-left.png \
+  qt/nasdacash/res/img/ic-exit.png \
+  qt/nasdacash/res/img/ic-switch-liliac-on.png \
+  qt/nasdacash/res/img/ic-arrow-white-right.png \
+  qt/nasdacash/res/img/ic-expand.png \
+  qt/nasdacash/res/img/ic-switch-off.png \
+  qt/nasdacash/res/img/img-qr-test-big.png \
+  qt/nasdacash/res/img/ic-check-active.png \
+  qt/nasdacash/res/img/ic-folder.png \
+  qt/nasdacash/res/img/ic-switch-on.png \
+  qt/nasdacash/res/img/img-qr-test.png \
+  qt/nasdacash/res/img/ic-check-box.png \
+  qt/nasdacash/res/img/ic-check-box-dark-active.png \
+  qt/nasdacash/res/img/ic-check-box-indeterminate.png \
+  qt/nasdacash/res/img/ic-check-box-liliac-indeterminate.png \
+  qt/nasdacash/res/img/ic-label-liliac.png \
+  qt/nasdacash/res/img/ic-transaction-warning.png \
+  qt/nasdacash/res/img/ic-transaction-mint.png \
+  qt/nasdacash/res/img/ic-transaction-mint-inactive.png \
+  qt/nasdacash/res/img/ic-check-cold-staking.png \
+  qt/nasdacash/res/img/ic-check-cold-staking-off.png \
+  qt/nasdacash/res/img/ic-check-cold-staking-enabled.png \
+  qt/nasdacash/res/img/dark/ic-transaction-cs-contract.png \
+  qt/nasdacash/res/img/dark/ic-transaction-cs-contract-inactive.png \
+  qt/nasdacash/res/img/img-qr.png \
+  qt/nasdacash/res/img/ic-check-connect-off.png \
+  qt/nasdacash/res/img/ic-check-tor-off.png \
+  qt/nasdacash/res/img/ic-check-tor.png \
+  qt/nasdacash/res/img/ic-label.png \
+  qt/nasdacash/res/img/ic-transaction-received.png \
+  qt/nasdacash/res/img/dark/ic-transaction-received.png \
+  qt/nasdacash/res/img/dark/ic-transaction-warning.png \
+  qt/nasdacash/res/img/dark/ic-transaction-mint.png \
+  qt/nasdacash/res/img/dark/ic-transaction-mint-inactive.png \
+  qt/nasdacash/res/img/ic-transaction-received-inactive.png \
+  qt/nasdacash/res/img/dark/ic-transaction-received-inactive.png \
+  qt/nasdacash/res/img/img-welcome-step1.png \
+  qt/nasdacash/res/img/ic-check-connect.png \
+  qt/nasdacash/res/img/ic-menu-hover.png \
+  qt/nasdacash/res/img/ic-transaction-sent.png \
+  qt/nasdacash/res/img/ic-transaction-sent-inactive.png \
+  qt/nasdacash/res/img/dark/ic-transaction-sent.png \
+  qt/nasdacash/res/img/dark/ic-transaction-sent-inactive.png \
+  qt/nasdacash/res/img/img-welcome-step2.png \
+  qt/nasdacash/res/img/ic-check-dark.png \
+  qt/nasdacash/res/img/ic-mint.png \
+  qt/nasdacash/res/img/ic-transaction-staked.png \
+  qt/nasdacash/res/img/ic-transaction-staked-inactive.png \
+  qt/nasdacash/res/img/dark/ic-transaction-staked.png \
+  qt/nasdacash/res/img/dark/ic-transaction-staked-inactive.png \
+  qt/nasdacash/res/img/img-welcome-step3.png \
+  qt/nasdacash/res/img/ic-check-liliac-on.png \
+  qt/nasdacash/res/img/ic-nav-address-active.png \
+  qt/nasdacash/res/img/ic-unlock-staking.png \
+  qt/nasdacash/res/img/img-welcome-step4.png \
+  qt/nasdacash/res/img/ic-check-locked-off.png \
+  qt/nasdacash/res/img/ic-nav-address-hover.png \
+  qt/nasdacash/res/img/ic-update-liliac.png \
+  qt/nasdacash/res/img/ic-arrow-drop-down-purple.png \
+  qt/nasdacash/res/img/ic-arrow-drop-up-purple.png \
+  qt/nasdacash/res/img/ic-check-liliac-indeterminate.png \
+  qt/nasdacash/res/img/ic-check-box-liliac-indeterminate.png \
+  qt/nasdacash/res/img/ic-transaction-stake-delegated.png \
+  qt/nasdacash/res/img/ic-transaction-stake-delegated-inactive.png \
+  qt/nasdacash/res/img/ic-transaction-stake-hot.png \
+  qt/nasdacash/res/img/ic-transaction-stake-hot-inactive.png \
+  qt/nasdacash/res/img/dark/ic-transaction-stake-hot.png \
+  qt/nasdacash/res/img/dark/ic-transaction-stake-hot-inactive.png \
+  qt/nasdacash/res/img/dark/ic-transaction-stake-delegated.png \
+  qt/nasdacash/res/img/dark/ic-transaction-stake-delegated-inactive.png \
+  qt/nasdacash/res/img/ic-transaction-cs-contract.png \
+  qt/nasdacash/res/img/ic-transaction-cs-contract-inactive.png \
+  qt/nasdacash/res/img/ic-check-box-indeterminate.png \
+  qt/nasdacash/res/img/ani-loading-dark.gif \
+  qt/nasdacash/res/img/ani-loading.gif
+
+
+
+BITCOIN_QT_BASE_CPP = \
+  qt/bantablemodel.cpp \
+  qt/bitcoinaddressvalidator.cpp \
+  qt/nasdacash/nasdacashgui.cpp \
+  qt/bitcoinunits.cpp \
+  qt/clientmodel.cpp \
+  qt/csvmodelwriter.cpp \
+  qt/guiutil.cpp \
+  qt/intro.cpp \
+  qt/networkstyle.cpp \
+  qt/notificator.cpp \
+  qt/optionsdialog.cpp \
+  qt/optionsmodel.cpp \
+  qt/peertablemodel.cpp \
+  qt/platformstyle.cpp \
+  qt/qvalidatedlineedit.cpp \
+  qt/qvaluecombobox.cpp \
+  qt/rpcconsole.cpp \
+  qt/trafficgraphwidget.cpp \
+  qt/utilitydialog.cpp
+
+BITCOIN_QT_WINDOWS_CPP = qt/winshutdownmonitor.cpp
+
+BITCOIN_QT_WALLET_CPP = \
+  qt/addressbookpage.cpp \
+  qt/addresstablemodel.cpp \
+  qt/askpassphrasedialog.cpp \
+  qt/coincontroldialog.cpp \
+  qt/coincontroltreewidget.cpp \
+  qt/editaddressdialog.cpp \
+  qt/openuridialog.cpp \
+  qt/paymentrequestplus.cpp \
+  qt/paymentserver.cpp \
+  qt/recentrequeststablemodel.cpp \
+  qt/transactiondesc.cpp \
+  qt/transactionfilterproxy.cpp \
+  qt/transactionrecord.cpp \
+  qt/transactiontablemodel.cpp \
+  qt/walletmodel.cpp \
+  qt/walletmodeltransaction.cpp \
+  qt/nasdacash/loadingdialog.cpp \
+  qt/nasdacash/pwidget.cpp \
+  qt/nasdacash/focuseddialog.cpp \
+  qt/nasdacash/guitransactionsutils.cpp \
+  qt/nasdacash/snackbar.cpp \
+  qt/nasdacash/navmenuwidget.cpp \
+  qt/nasdacash/lockunlock.cpp \
+  qt/nasdacash/receivedialog.cpp \
+  qt/nasdacash/furabstractlistitemdelegate.cpp \
+  qt/nasdacash/txviewholder.cpp \
+  qt/nasdacash/qtutils.cpp \
+  qt/nasdacash/expandablebutton.cpp \
+  qt/nasdacash/topbar.cpp \
+  qt/nasdacash/txrow.cpp \
+  qt/nasdacash/addressholder.cpp \
+  qt/nasdacash/addressfilterproxymodel.cpp \
+  qt/nasdacash/dashboardwidget.cpp \
+  qt/nasdacash/addresslabelrow.cpp \
+  qt/nasdacash/contactdropdownrow.cpp \
+  qt/nasdacash/contactsdropdown.cpp \
+  qt/nasdacash/optionbutton.cpp \
+  qt/nasdacash/mninfodialog.cpp \
+  qt/nasdacash/coldstakingmodel.cpp \
+  qt/nasdacash/mnmodel.cpp \
+  qt/nasdacash/masternodewizarddialog.cpp \
+  qt/nasdacash/mnrow.cpp \
+  qt/nasdacash/masternodeswidget.cpp \
+  qt/nasdacash/myaddressrow.cpp \
+  qt/nasdacash/csrow.cpp \
+  qt/nasdacash/sendchangeaddressdialog.cpp \
+  qt/nasdacash/sendconfirmdialog.cpp \
+  qt/nasdacash/sendcustomfeedialog.cpp \
+  qt/nasdacash/sendchangeaddressdialog.cpp \
+  qt/nasdacash/sendmultirow.cpp \
+  qt/nasdacash/send.cpp \
+  qt/nasdacash/addnewaddressdialog.cpp \
+  qt/nasdacash/addnewcontactdialog.cpp \
+  qt/nasdacash/requestdialog.cpp \
+  qt/nasdacash/receivewidget.cpp \
+  qt/nasdacash/tooltipmenu.cpp \
+  qt/nasdacash/addresseswidget.cpp \
+  qt/nasdacash/defaultdialog.cpp \
+  qt/nasdacash/coldstakingwidget.cpp \
+  qt/nasdacash/settings/settingsbackupwallet.cpp \
+  qt/nasdacash/settings/settingsexportcsv.cpp \
+  qt/nasdacash/settings/settingsbittoolwidget.cpp \
+  qt/nasdacash/settings/settingsconsolewidget.cpp \
+  qt/nasdacash/settings/settingsdisplayoptionswidget.cpp \
+  qt/nasdacash/settings/settingsfaqwidget.cpp \
+  qt/nasdacash/settings/settingsinformationwidget.cpp \
+  qt/nasdacash/settings/settingsmainoptionswidget.cpp \
+  qt/nasdacash/settings/settingsmultisenddialog.cpp \
+  qt/nasdacash/settings/settingsmultisendwidget.cpp \
+  qt/nasdacash/settings/settingssignmessagewidgets.cpp \
+  qt/nasdacash/settings/settingswalletoptionswidget.cpp \
+  qt/nasdacash/settings/settingswalletrepairwidget.cpp \
+  qt/nasdacash/settings/settingswidget.cpp \
+  qt/nasdacash/welcomecontentwidget.cpp \
+  qt/nasdacash/splash.cpp
+
+
+BITCOIN_QT_CPP = $(BITCOIN_QT_BASE_CPP)
+if TARGET_WINDOWS
+BITCOIN_QT_CPP += $(BITCOIN_QT_WINDOWS_CPP)
+endif
+if ENABLE_WALLET
+BITCOIN_QT_CPP += $(BITCOIN_QT_WALLET_CPP)
+endif
+
+RES_IMAGES = \
+  qt/res/images/about.png
+
+RES_CSS = \
+  qt/nasdacash/res/css/style_dark.css \
+  qt/nasdacash/res/css/style_light.css
+
+BITCOIN_RC = qt/res/nasdacash-qt-res.rc
+
+BITCOIN_QT_INCLUDES = -I$(builddir)/qt -I$(srcdir)/qt -I$(srcdir)/qt/forms \
+  -I$(builddir)/qt/forms -DQT_NO_KEYWORDS
+
+qt_libbitcoinqt_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+  $(QT_INCLUDES) $(QT_DBUS_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
+qt_libbitcoinqt_a_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+qt_libbitcoinqt_a_OBJCXXFLAGS = $(AM_OBJCXXFLAGS) $(QT_PIE_FLAGS)
+
+qt_libbitcoinqt_a_SOURCES = $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(QT_FORMS_UI) \
+  $(QT_QRC) $(QT_QRC_LOCALE) $(QT_TS) $(PROTOBUF_PROTO) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS)
+
+nodist_qt_libbitcoinqt_a_SOURCES = $(QT_MOC_CPP) $(QT_MOC) $(PROTOBUF_CC) \
+  $(PROTOBUF_H) $(QT_QRC_CPP) $(QT_QRC_LOCALE_CPP)
+
+# forms/foo.h -> forms/ui_foo.h
+QT_FORMS_H=$(join $(dir $(QT_FORMS_UI)),$(addprefix ui_, $(notdir $(QT_FORMS_UI:.ui=.h))))
+
+# Most files will depend on the forms and moc files as includes. Generate them
+# before anything else.
+$(QT_MOC): $(QT_FORMS_H)
+$(qt_libbitcoinqt_a_OBJECTS) $(qt_nasdacash_qt_OBJECTS) : | $(QT_MOC)
+
+#Generating these with a half-written protobuf header leads to wacky results.
+#This makes sure it's done.
+$(QT_MOC): $(PROTOBUF_H)
+$(QT_MOC_CPP): $(PROTOBUF_H)
+
+# nasdacash-qt binary #
+qt_nasdacash_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+  $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
+qt_nasdacash_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+
+qt_nasdacash_qt_SOURCES = qt/nasdacash.cpp
+if TARGET_DARWIN
+  qt_nasdacash_qt_SOURCES += $(BITCOIN_MM)
+endif
+if TARGET_WINDOWS
+  qt_nasdacash_qt_SOURCES += $(BITCOIN_RC)
+endif
+qt_nasdacash_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
+if ENABLE_WALLET
+qt_nasdacash_qt_LDADD += $(LIBBITCOIN_UTIL) $(LIBBITCOIN_WALLET)
+endif
+if ENABLE_ZMQ
+qt_nasdacash_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
+endif
+qt_nasdacash_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBLEVELDB) $(LIBLEVELDB_SSE42) $(LIBMEMENV) \
+  $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(SVG_LIBS) $(CHARTS_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
+  $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
+qt_nasdacash_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+qt_nasdacash_qt_LIBTOOLFLAGS = $(AM_LIBTOOLFLAGS) --tag CXX
+
+#locale/foo.ts -> locale/foo.qm
+QT_QM=$(QT_TS:.ts=.qm)
+
+SECONDARY: $(QT_QM)
+
+$(srcdir)/qt/nasdacashstrings.cpp: $(libbitcoin_server_a_SOURCES) $(libbitcoin_wallet_a_SOURCES) $(libbitcoin_common_a_SOURCES) $(libbitcoin_zmq_a_SOURCES) $(libbitcoin_util_a_SOURCES)
+	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
+	$(AM_V_GEN) cd $(srcdir); XGETTEXT=$(XGETTEXT) PACKAGE_NAME="$(PACKAGE_NAME)" $(PYTHON) ../share/qt/extract_strings_qt.py $^
+
+translate: $(srcdir)/qt/nasdacashstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_BASE_CPP) qt/nasdacash.cpp $(BITCOIN_QT_WINDOWS_CPP) $(BITCOIN_QT_WALLET_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
+	@test -n $(LUPDATE) || echo "lupdate is required for updating translations"
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts $(srcdir)/qt/locale/nasdacash_en.ts
+
+$(QT_QRC_LOCALE_CPP): $(QT_QRC_LOCALE) $(QT_QM)
+	@test -f $(RCC)
+	@cp -f $< $(@D)/temp_$(<F)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name nasdacash_locale $(@D)/temp_$(<F) | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+	@rm $(@D)/temp_$(<F)
+
+$(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS) $(PROTOBUF_H)
+	@test -f $(RCC)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name nasdacash $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+CLEAN_QT = $(nodist_qt_libbitcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno qt/temp_nasdacash_locale.qrc
+
+CLEANFILES += $(CLEAN_QT)
+
+nasdacash_qt_clean: FORCE
+	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_nasdacash_qt_OBJECTS) qt/nasdacash-qt$(EXEEXT) $(LIBBITCOINQT)
+
+nasdacash_qt : qt/nasdacash-qt$(EXEEXT)
+
+ui_%.h: %.ui
+	@test -f $(UIC)
+	@$(MKDIR_P) $(@D)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(UIC) -o $@ $< || (echo "Error creating $@"; false)
+
+%.moc: %.cpp
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(MOC) $(DEFAULT_INCLUDES) $(QT_INCLUDES) $(MOC_DEFS) $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+moc_%.cpp: %.h
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(MOC) $(DEFAULT_INCLUDES) $(QT_INCLUDES) $(MOC_DEFS) $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+%.qm: %.ts
+	@test -f $(LRELEASE)
+	@$(MKDIR_P) $(@D)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LRELEASE) -silent $< -qm $@

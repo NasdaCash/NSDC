@@ -1,0 +1,15 @@
+# http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-1.0.html
+
+[Desktop Entry]
+Encoding=UTF-8
+Name=Nasda Cash
+Comment=Nasda Cash QT main network
+GenericName=Nasda_Cash Digital Currency QT client main network
+Exec=nasdacash-core.qt %u
+Terminal=false
+Type=Application
+Icon=${SNAP}/share/pixmaps/nasdacash.png
+MimeType=x-scheme-handler/nasdacash;
+Categories=X-Office;X-Finance;
+Keywords=internet;nasdacash;znsdc;nsdc;core;wallet;qt;main;snap;launchpad;crypto;digital;currency;coin;token;zerocoin;
+Version=1.0
